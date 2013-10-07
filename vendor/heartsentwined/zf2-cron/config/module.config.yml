@@ -1,0 +1,54 @@
+di:
+    instance:
+        alias:
+            cron: Heartsentwined\Cron\Service\Cron
+        cron:
+            parameters:
+                #em: doctrine.entitymanager.orm_default
+                #can't inject EntityManager here; will pull from controller
+                scheduleAhead: 60
+                scheduleLifetime: 60
+                maxRunnintTime: 60
+                successLogLifetime: 300
+                failureLogLifetime: 10080
+doctrine:
+    driver:
+        cron_driver:
+            class: Doctrine\ORM\Mapping\Driver\YamlDriver
+            cache: array
+            paths:
+                - __DIR__/../src/Heartsentwined/Cron/Entity/Mapping
+        orm_default:
+            drivers:
+                Heartsentwined\Cron\Entity: cron_driver
+controllers:
+    invokables:
+        Heartsentwined\Cron\Controller\Cron: Heartsentwined\Cron\Controller\CronController
+console:
+    router:
+        routes:
+            cron:
+                options:
+                    route: cron
+                    defaults:
+                        controller: Heartsentwined\Cron\Controller\Cron
+                        action: index
+# backup: allow browser calling cron, in case cli cannot run
+router:
+    routes:
+        cron:
+            type: Literal
+            options:
+                route: /cron
+                defaults:
+                    __NAMESPACE__: Heartsentwined\Cron\Controller
+                    controller: Cron
+                    action: index
+            may_terminate: true
+            child_routes:
+                default:
+                    type: Segment
+                    options:
+                        route: '/[:action[/]]'
+                        constraints:
+                            action: '[a-zA-Z][a-zA-Z0-9_-]*'

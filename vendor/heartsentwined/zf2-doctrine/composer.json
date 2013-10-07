@@ -1,0 +1,22 @@
+{
+    "name": "heartsentwined/zf2-doctrine",
+    "description": "wrapper for DoctrineORMModule + DoctrineModule's CLI, tailored for yaml config files",
+    "license": "GPL-3.0",
+    "keywords": ["cli", "zf2", "doctrine"],
+    "homepage": "https://github.com/heartsentwined/zf2-doctrine",
+    "authors": [
+        {
+            "name": "heartsentwined",
+            "email": "heartsentwined@cogito-lab.com",
+            "role": "Developer"
+        }
+    ],
+    "bin": ["bin/doctrine-cli"],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/yaml": "2.0.*"
+    },
+    "require-dev": {
+        "doctrine/doctrine-orm-module": "dev-master"
+    }
+}

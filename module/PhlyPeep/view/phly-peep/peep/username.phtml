@@ -1,0 +1,19 @@
+<?php
+if (!isset($this->username)) {
+    $peep     = $this->peeps->current();
+    $username = $peep->getUsername();
+    $this->username = $username;
+}
+?>
+<div class="row">
+    <div class="span12">
+        <h2>Peeps for <?php echo $this->escapeHtml($this->username) ?></h2>
+    </div>
+</div>
+
+<?php 
+$paginationInfo = $this->placeholder('phly-peep-pagination');
+$paginationInfo->route  = 'phly-peep/user';
+$paginationInfo->params = array('username' => $this->username);
+
+echo $this->render('phly-peep/peep/index');
